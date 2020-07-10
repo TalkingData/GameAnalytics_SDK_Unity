@@ -66,6 +66,20 @@ public class TalkingDataGA {
 		}
 		return deviceId;
 	}
+	private static string oaid = null;
+		public static string GetOAID() {
+		//if the platform is real device
+		if (oaid == null && Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor) {
+#if UNITY_ANDROID
+			if (agent == null) {
+				agent = new AndroidJavaClass(JAVA_CLASS);
+			}
+			AndroidJavaObject activity = unityClass.GetStatic<AndroidJavaObject>("currentActivity");
+			oaid = agent.CallStatic<string>("getOAID", activity);
+#endif
+		}
+		return oaid;
+	}
 	
 	public static void OnStart(string appID, string channelId) {
 		//if the platform is real device
