@@ -122,8 +122,11 @@ void TDGAOnUse(const char *item, int itemNumber) {
 #ifdef TDGA_CUSTOM
 void TDGAOnEvent(const char *eventId, const char *parameters) {
     NSString *parameterStr = TDGACreateNSString(parameters);
-    NSData *parameterData = [parameterStr dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *parameterDic = [NSJSONSerialization JSONObjectWithData:parameterData options:0 error:nil];
+    NSDictionary *parameterDic = nil;
+    if (parameterStr) {
+        NSData *parameterData = [parameterStr dataUsingEncoding:NSUTF8StringEncoding];
+        parameterDic = [NSJSONSerialization JSONObjectWithData:parameterData options:0 error:nil];
+    }
     [TalkingDataGA onEvent:TDGACreateNSString(eventId) eventData:parameterDic];
 }
 #endif
