@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 #endif
 
 
-public enum AccountType
+public enum ProfileType
 {
     ANONYMOUS = 0,
     REGISTERED = 1,
@@ -33,25 +33,25 @@ public enum Gender
 }
 
 
-public class TDGAAccount
+public class TDGAProfile
 {
-    private static TDGAAccount account;
+    private static TDGAProfile profile;
 
 #if UNITY_ANDROID
-    private static readonly string ACCOUNT_CLASS = "com.tendcloud.tenddata.TDGAAccount";
-    private static AndroidJavaClass accountClass;
-    private AndroidJavaObject mAccount;
+    private static readonly string PROFILE_CLASS = "com.tendcloud.tenddata.TDGAProfile";
+    private static AndroidJavaClass profileClass;
+    private AndroidJavaObject mProfile;
 #endif
 
 #if UNITY_IPHONE
     [DllImport("__Internal")]
-    private static extern void TDGASetAccount(string accountId);
+    private static extern void TDGASetProfile(string profileId);
 
     [DllImport("__Internal")]
-    private static extern void TDGASetAccountName(string accountName);
+    private static extern void TDGASetProfileName(string profileName);
 
     [DllImport("__Internal")]
-    private static extern void TDGASetAccountType(int accountType);
+    private static extern void TDGASetProfileType(int profileType);
 
     [DllImport("__Internal")]
     private static extern void TDGASetLevel(int level);
@@ -66,59 +66,59 @@ public class TDGAAccount
     private static extern void TDGASetGameServer(string gameServer);
 #endif
 
-    public static TDGAAccount SetAccount(string accountId)
+    public static TDGAProfile SetProfile(string profileId)
     {
-        if (account == null)
+        if (profile == null)
         {
-            account = new TDGAAccount();
+            profile = new TDGAProfile();
         }
         if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
         {
 #if UNITY_ANDROID
-            if (accountClass == null)
+            if (profileClass == null)
             {
-                accountClass = new AndroidJavaClass(ACCOUNT_CLASS);
+                profileClass = new AndroidJavaClass(PROFILE_CLASS);
             }
-            account.mAccount = accountClass.CallStatic<AndroidJavaObject>("setAccount", accountId);
+            profile.mProfile = profileClass.CallStatic<AndroidJavaObject>("setProfile", profileId);
 #endif
 #if UNITY_IPHONE
-            TDGASetAccount(accountId);
+            TDGASetProfile(profileId);
 #endif
         }
-        return account;
+        return profile;
     }
 
-    public void SetAccountName(string accountName)
+    public void SetProfileName(string profileName)
     {
         if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
         {
 #if UNITY_ANDROID
-            if (mAccount != null)
+            if (mProfile != null)
             {
-                mAccount.Call("setAccountName", accountName);
+                mProfile.Call("setProfileName", profileName);
             }
 #endif
 #if UNITY_IPHONE
-            TDGASetAccountName(accountName);
+            TDGASetProfileName(profileName);
 #endif
         }
     }
 
-    public void SetAccountType(AccountType type)
+    public void SetProfileType(ProfileType type)
     {
         if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
         {
 #if UNITY_ANDROID
-            if (mAccount != null)
+            if (mProfile != null)
             {
-                AndroidJavaClass enumClass = new AndroidJavaClass("com.tendcloud.tenddata.TDGAAccount$AccountType");
+                AndroidJavaClass enumClass = new AndroidJavaClass("com.tendcloud.tenddata.TDGAProfile$ProfileType");
                 AndroidJavaObject obj = enumClass.CallStatic<AndroidJavaObject>("valueOf", type.ToString());
-                mAccount.Call("setAccountType", obj);
+                mProfile.Call("setProfileType", obj);
                 enumClass.Dispose();
             }
 #endif
 #if UNITY_IPHONE
-            TDGASetAccountType((int)type);
+            TDGASetProfileType((int)type);
 #endif
         }
     }
@@ -128,9 +128,9 @@ public class TDGAAccount
         if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
         {
 #if UNITY_ANDROID
-            if (mAccount != null)
+            if (mProfile != null)
             {
-                mAccount.Call("setLevel", level);
+                mProfile.Call("setLevel", level);
             }
 #endif
 #if UNITY_IPHONE
@@ -144,9 +144,9 @@ public class TDGAAccount
         if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
         {
 #if UNITY_ANDROID
-            if (mAccount != null)
+            if (mProfile != null)
             {
-                mAccount.Call("setAge", age);
+                mProfile.Call("setAge", age);
             }
 #endif
 #if UNITY_IPHONE
@@ -160,11 +160,11 @@ public class TDGAAccount
         if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
         {
 #if UNITY_ANDROID
-            if (mAccount != null)
+            if (mProfile != null)
             {
-                AndroidJavaClass enumClass = new AndroidJavaClass("com.tendcloud.tenddata.TDGAAccount$Gender");
+                AndroidJavaClass enumClass = new AndroidJavaClass("com.tendcloud.tenddata.TDGAProfile$Gender");
                 AndroidJavaObject obj = enumClass.CallStatic<AndroidJavaObject>("valueOf", type.ToString());
-                mAccount.Call("setGender", obj);
+                mProfile.Call("setGender", obj);
                 enumClass.Dispose();
             }
 #endif
@@ -179,9 +179,9 @@ public class TDGAAccount
         if (Application.platform != RuntimePlatform.OSXEditor && Application.platform != RuntimePlatform.WindowsEditor)
         {
 #if UNITY_ANDROID
-            if (mAccount != null)
+            if (mProfile != null)
             {
-                mAccount.Call("setGameServer", gameServer);
+                mProfile.Call("setGameServer", gameServer);
             }
 #endif
 #if UNITY_IPHONE

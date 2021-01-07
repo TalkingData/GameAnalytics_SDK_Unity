@@ -9,7 +9,7 @@ static NSString *TDGACreateNSString(const char *string) {
 }
 
 static char *tdgaDeviceId = NULL;
-static TDGAAccount *tdgaAccount = nil;
+static TDGAProfile *tdgaProfile = nil;
 
 extern "C" {
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
@@ -42,43 +42,43 @@ void TDGASetLocation(double latitude, double longitude) {
     [TalkingDataGA setLatitude:latitude longitude:longitude];
 }
 
-void TDGASetAccount(const char *accountId) {
-    tdgaAccount = [TDGAAccount setAccount:TDGACreateNSString(accountId)];
+void TDGASetProfile(const char *profileId) {
+    tdgaProfile = [TDGAProfile setProfile:TDGACreateNSString(profileId)];
 }
 
-void TDGASetAccountName(const char *accountName) {
-    if (nil != tdgaAccount) {
-        [tdgaAccount setAccountName:TDGACreateNSString(accountName)];
+void TDGASetProfileName(const char *profileName) {
+    if (nil != tdgaProfile) {
+        [tdgaProfile setProfileName:TDGACreateNSString(profileName)];
     }
 }
 
-void TDGASetAccountType(int accountType) {
-    if (nil != tdgaAccount) {
-        [tdgaAccount setAccountType:(TDGAAccountType)accountType];
+void TDGASetProfileType(int profileType) {
+    if (nil != tdgaProfile) {
+        [tdgaProfile setProfileType:(TDGAProfileType)profileType];
     }
 }
 
 void TDGASetLevel(int level) {
-    if (nil != tdgaAccount) {
-        [tdgaAccount setLevel:level];
+    if (nil != tdgaProfile) {
+        [tdgaProfile setLevel:level];
     }
 }
 
 void TDGASetGender(int gender) {
-    if (nil != tdgaAccount) {
-        [tdgaAccount setGender:(TDGAGender)gender];
+    if (nil != tdgaProfile) {
+        [tdgaProfile setGender:(TDGAGender)gender];
     }
 }
 
 void TDGASetAge(int age) {
-    if (nil != tdgaAccount) {
-        [tdgaAccount setAge:age];
+    if (nil != tdgaProfile) {
+        [tdgaProfile setAge:age];
     }
 }
 
 void TDGASetGameServer(const char *gameServer) {
-    if (nil != tdgaAccount) {
-        [tdgaAccount setGameServer:TDGACreateNSString(gameServer)];
+    if (nil != tdgaProfile) {
+        [tdgaProfile setGameServer:TDGACreateNSString(gameServer)];
     }
 }
 

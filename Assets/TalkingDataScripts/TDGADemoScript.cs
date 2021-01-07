@@ -10,7 +10,7 @@ public class TDGADemoScript : MonoBehaviour
     private const int step = 60;
     private string deviceId;
     private string oaid;
-    private TDGAAccount account;
+    private TDGAProfile profile;
     private int index = 1;
     private int level = 1;
 
@@ -36,56 +36,56 @@ public class TDGADemoScript : MonoBehaviour
             TalkingDataGA.SetLocation(39.94, 116.43);
         }
 
-        if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Create Account"))
+        if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Create Profile"))
         {
-            account = TDGAAccount.SetAccount("User" + index++);
+            profile = TDGAProfile.SetProfile("User" + index++);
         }
 
-        if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Account Name"))
+        if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Profile Name"))
         {
-            if (account != null)
+            if (profile != null)
             {
-                account.SetAccountName("name");
+                profile.SetProfileName("name");
             }
         }
 
-        if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Account Type"))
+        if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Profile Type"))
         {
-            if (account != null)
+            if (profile != null)
             {
-                account.SetAccountType(AccountType.WEIXIN);
+                profile.SetProfileType(ProfileType.WEIXIN);
             }
         }
 
         if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Level"))
         {
-            if (account != null)
+            if (profile != null)
             {
-                account.SetLevel(level++);
+                profile.SetLevel(level++);
             }
         }
 
         if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Gender"))
         {
-            if (account != null)
+            if (profile != null)
             {
-                account.SetGender(Gender.MALE);
+                profile.SetGender(Gender.MALE);
             }
         }
 
         if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Age"))
         {
-            if (account != null)
+            if (profile != null)
             {
-                account.SetAge(21);
+                profile.SetAge(21);
             }
         }
 
         if (GUI.Button(new Rect(left, top + (step * i++), width, height), "Set Game Server"))
         {
-            if (account != null)
+            if (profile != null)
             {
-                account.SetGameServer("server1");
+                profile.SetGameServer("server1");
             }
         }
 
@@ -148,7 +148,7 @@ public class TDGADemoScript : MonoBehaviour
         //TalkingDataGA.SetVerboseLogDisabled();
         TalkingDataGA.BackgroundSessionEnabled();
         TalkingDataGA.OnStart("your_app_id", "your_channel_id");
-        account = TDGAAccount.SetAccount("User" + index++);
+        profile = TDGAProfile.SetProfile("User" + index++);
 #if TDGA_PUSH
 #if UNITY_IPHONE
         UnityEngine.iOS.NotificationServices.RegisterForNotifications(
